@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white outline-none placeholder:text-zinc-500 transition focus:border-secondary focus:bg-white/[0.06] focus:ring-4 focus:ring-secondary/15";
+  "w-full rounded-lg border border-line bg-primary px-4 py-3 text-ink outline-none placeholder:text-ink-faint transition focus:border-secondary";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -42,11 +42,9 @@ const Contact = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-primary text-white">
-      {/* Decorative glow */}
-      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-40 h-[480px] w-[600px] rounded-full bg-secondary/25 blur-[120px]"></div>
 
       <div className="relative mx-auto max-w-5xl px-6 py-10 md:py-14">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-white">
+        <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
           <i className="ri-arrow-left-line icon-btn"></i>
           Back to home
         </Link>
@@ -54,14 +52,12 @@ const Contact = () => {
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_1.15fr]">
           {/* Main Heading */}
           <div className="animate-fade-up">
-            <span className="chip mb-5 text-xs font-medium tracking-wider uppercase">
-              <i className="ri-mail-line text-secondary-light"></i> Get in touch
-            </span>
+            <p className="eyebrow mb-4">Get in touch</p>
             <h1 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
               Contact Us
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-zinc-300">
+            <p className="mt-6 max-w-xl text-lg leading-8 text-ink-soft">
               Have a question, suggestion, or feedback?
               We'd love to hear from you! Whether it's
               about your favorite movies, TV shows,
@@ -70,14 +66,14 @@ const Contact = () => {
             </p>
 
             <div className="mt-8 flex flex-col gap-3">
-              <div className="flex items-center gap-4 text-sm text-zinc-400">
-                <span className="grid size-11 place-items-center rounded-xl bg-secondary/15 text-xl text-secondary-light">
+              <div className="flex items-center gap-4 text-sm text-ink-muted">
+                <span className="grid size-11 place-items-center rounded-lg bg-surface-2 text-xl text-secondary">
                   <i className="ri-chat-smile-2-line"></i>
                 </span>
                 Feedback and suggestions are always welcome
               </div>
-              <div className="flex items-center gap-4 text-sm text-zinc-400">
-                <span className="grid size-11 place-items-center rounded-xl bg-secondary/15 text-xl text-secondary-light">
+              <div className="flex items-center gap-4 text-sm text-ink-muted">
+                <span className="grid size-11 place-items-center rounded-lg bg-surface-2 text-xl text-secondary">
                   <i className="ri-film-line"></i>
                 </span>
                 Questions about movies, shows or the site
@@ -86,13 +82,13 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <section className="glass animate-fade-up rounded-3xl p-6 [animation-delay:120ms] sm:p-8">
+          <section className="animate-fade-up rounded-2xl border border-line bg-surface p-6 [animation-delay:120ms] sm:p-8">
 
             <h2 className="font-display text-2xl font-semibold">
               Send Us a Message
             </h2>
 
-            <p className="mt-2 mb-8 text-sm leading-6 text-zinc-400">
+            <p className="mt-2 mb-8 text-sm leading-6 text-ink-muted">
               Fill out the form below to get in touch
               with us. We appreciate your feedback
               and suggestions.
@@ -105,7 +101,7 @@ const Contact = () => {
 
               {/* Name */}
               <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-zinc-300">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink-soft">
                   Your Name
                 </label>
 
@@ -123,7 +119,7 @@ const Contact = () => {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-zinc-300">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-ink-soft">
                   Email Address
                 </label>
 
@@ -141,7 +137,7 @@ const Contact = () => {
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-zinc-300">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-ink-soft">
                   Your Message
                 </label>
 
@@ -171,8 +167,8 @@ const Contact = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 border-t border-white/10 pt-8">
-          <p className="text-sm leading-7 text-zinc-500">
+        <div className="mt-16 border-t border-line pt-8">
+          <p className="text-sm leading-7 text-ink-faint">
             MovieThrill — Connecting movie lovers through
             the magic of cinema.
           </p>

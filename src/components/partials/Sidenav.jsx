@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 const feedLinks = [
   { to: "/trending", icon: "ri-fire-line", label: "Trending" },
@@ -14,8 +14,12 @@ const infoLinks = [
   { to: "/contact", icon: "ri-phone-line", label: "Contact Us" },
 ];
 
-const linkClass =
-  "group flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium text-zinc-400 transition-all duration-200 hover:translate-x-1 hover:bg-secondary hover:text-white hover:shadow-lg hover:shadow-secondary/25";
+const linkClass = ({ isActive }) =>
+  `group relative flex items-center gap-3 rounded-lg px-4 py-2.5 text-[15px] font-semibold transition-colors duration-200 ${
+    isActive
+      ? "bg-surface-2 text-ink before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-secondary"
+      : "text-ink-muted hover:bg-surface-2/60 hover:text-ink"
+  }`;
 
 const Sidenav = () => {
   // UI-only state: controls the slide-in drawer on small screens
@@ -23,10 +27,14 @@ const Sidenav = () => {
 
   const renderLinks = (links) =>
     links.map((l) => (
-      <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className={linkClass}>
-        <i className={`${l.icon} text-xl text-zinc-500 transition-colors group-hover:text-white`}></i>
-        {l.label}
-      </Link>
+      <NavLink key={l.to} to={l.to} onClick={() => setOpen(false)} className={linkClass}>
+        {({ isActive }) => (
+          <>
+            <i className={`${l.icon} text-xl transition-colors ${isActive ? "text-secondary" : "text-ink-faint group-hover:text-ink-soft"}`}></i>
+            {l.label}
+          </>
+        )}
+      </NavLink>
     ));
 
   return (
@@ -49,16 +57,18 @@ const Sidenav = () => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-y-auto border-r border-white/5 bg-surface px-5 py-6 transition-transform duration-300 md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:translate-x-0 lg:w-72 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-y-auto border-r border-line bg-surface px-5 py-6 transition-transform duration-300 md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:translate-x-0 lg:w-72 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between px-2">
           <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-            <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-secondary to-fuchsia-500 text-xl text-white shadow-lg shadow-secondary/30">
-              <i className="ri-remix-line"></i>
+            <span className="grid size-9 place-items-center rounded-lg bg-secondary text-lg text-white">
+              <i className="ri-film-fill"></i>
             </span>
-            <span className="font-display text-2xl font-bold tracking-tight text-white">MovieThrill</span>
+            <span className="font-display text-2xl font-bold tracking-tight text-ink">
+              Movie<span className="text-secondary">Thrill</span>
+            </span>
           </Link>
           <button
             onClick={() => setOpen(false)}
@@ -70,22 +80,22 @@ const Sidenav = () => {
         </div>
 
         <nav className="mt-10 flex flex-col gap-1">
-          <h1 className="mb-3 px-4 text-xs font-semibold tracking-[0.2em] text-zinc-500 uppercase">
-            New Feeds
+          <h1 className="mb-3 px-4 text-[11px] font-bold tracking-[0.22em] text-ink-faint uppercase">
+            Browse
           </h1>
           {renderLinks(feedLinks)}
         </nav>
 
-        <hr className="my-6 border-white/5" />
+        <hr className="my-6 border-line" />
 
         <nav className="flex flex-col gap-1">
-          <h1 className="mb-3 px-4 text-xs font-semibold tracking-[0.2em] text-zinc-500 uppercase">
-            Website Information
+          <h1 className="mb-3 px-4 text-[11px] font-bold tracking-[0.22em] text-ink-faint uppercase">
+            About the site
           </h1>
           {renderLinks(infoLinks)}
         </nav>
 
-        <p className="mt-auto px-4 pt-8 text-xs leading-5 text-zinc-600">
+        <p className="mt-auto px-4 pt-8 text-xs leading-5 text-ink-faint">
           Data provided by TMDB.
         </p>
       </aside>

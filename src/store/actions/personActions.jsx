@@ -6,8 +6,8 @@ export const asyncloadperson=(id)=>async(dispatch)=>{
   try{
     const [detail, externalid, combinedcredits] = await Promise.all([
       axios.get(`/person/${id}`),
-      axios.get(`/person/${id}/external_ids`),
-      axios.get(`/person/${id}/combined_credits`),
+      axios.get(`/person/${id}/external_ids`).catch(()=>({data:{}})),
+      axios.get(`/person/${id}/combined_credits`).catch(()=>({data:{cast:[]}})),
     ]);
 
     const theultimatedetails={
@@ -15,9 +15,11 @@ export const asyncloadperson=(id)=>async(dispatch)=>{
       externalid:externalid.data,
       combinedcredits:combinedcredits.data.cast,
     };
-    dispatch(loadPerson(theultimatedetails))
+    dispatch(loadPerson(theultimatedetails));
+    return true;
 
   }catch(err){
-    console.log("Error",err);
+    console.error("Failed to load", id, err);
+    return false;
   }
 }

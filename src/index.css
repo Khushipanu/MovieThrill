@@ -1,14 +1,27 @@
 @import "tailwindcss";
 
+/*
+  MovieThrill palette — "late-night cinema"
+  Warm near-black like a dark theatre, one vermilion accent (the curtain),
+  marquee gold reserved for ratings, and warm off-white text instead of pure grey.
+*/
 @theme {
-  --color-primary: #121118;
-  --color-surface: #1a1922;
-  --color-surface-2: #23222d;
-  --color-secondary: #6556cd;
-  --color-secondary-light: #8b7ff0;
+  --color-primary: #0e0c0b; /* page background */
+  --color-surface: #171412; /* cards, sidebar */
+  --color-surface-2: #221e1b; /* raised / hover */
+  --color-line: #2c2723; /* hairline borders */
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-secondary: #dc4c3e; /* accent: vermilion */
+  --color-secondary-light: #ef7a6b;
+  --color-gold: #e6b450; /* ratings only */
+
+  --color-ink: #f3ede4; /* main text */
+  --color-ink-soft: #d4cabd;
+  --color-ink-muted: #a1978a;
+  --color-ink-faint: #6e665d;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
 
   --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 0.3s ease-out both;
@@ -38,16 +51,15 @@
 @layer base {
   html {
     color-scheme: dark;
-    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-primary font-sans text-zinc-100 antialiased;
+    @apply bg-primary font-sans text-ink antialiased;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: rgb(101 86 205 / 0.6);
+    background: rgb(220 76 62 / 0.55);
     color: #fff;
   }
 
@@ -60,6 +72,10 @@
   button {
     cursor: pointer;
   }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
 }
 
 /* ---------- Reusable UI pieces ---------- */
@@ -70,49 +86,52 @@
   }
 
   .glass {
-    @apply border border-white/10 bg-white/[0.04] backdrop-blur-md;
+    @apply border border-line bg-surface/70 backdrop-blur-md;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white shadow-lg shadow-secondary/30 transition duration-300 hover:-translate-y-0.5 hover:bg-secondary-light hover:shadow-secondary/50 active:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white transition duration-200 hover:bg-secondary-light active:scale-[0.98];
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-semibold text-zinc-200 transition duration-300 hover:border-secondary-light hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/60 px-7 py-3.5 font-semibold text-ink-soft transition duration-200 hover:border-ink-faint hover:text-ink;
   }
 
   .icon-btn {
-    @apply inline-grid size-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-lg text-zinc-200 backdrop-blur-md transition duration-200 hover:border-secondary hover:bg-secondary hover:text-white;
+    @apply inline-grid size-10 shrink-0 place-items-center rounded-full border border-line bg-surface/70 text-lg text-ink-soft backdrop-blur-md transition duration-200 hover:border-ink-faint hover:bg-surface-2 hover:text-ink;
   }
 
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-zinc-200 backdrop-blur-md;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface/70 px-3.5 py-1.5 text-sm text-ink-soft backdrop-blur-md;
+  }
+
+  .tag {
+    @apply shrink-0 rounded-md bg-surface-2 px-2 py-1 font-sans text-[11px] font-semibold tracking-wider text-ink-muted uppercase;
   }
 
   .section-title {
-    @apply flex items-center gap-3 font-display text-xl font-semibold tracking-tight text-white sm:text-2xl;
+    @apply font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl;
   }
 
-  .section-title::before {
-    content: "";
-    @apply h-6 w-1.5 rounded-full bg-secondary;
+  .eyebrow {
+    @apply text-xs font-bold tracking-[0.22em] text-secondary uppercase;
   }
 
   .detail-heading {
-    @apply mt-7 mb-2.5 text-xs font-semibold tracking-[0.2em] text-zinc-400 uppercase;
+    @apply mt-7 mb-2.5 text-xs font-bold tracking-[0.2em] text-ink-faint uppercase;
   }
 
   /* Sticky header used on listing pages (Trending, Popular, ...) */
   .page-header {
-    @apply sticky top-0 z-40 flex flex-col gap-3 border-b border-white/5 bg-primary/85 py-3 backdrop-blur-xl lg:flex-row lg:items-center lg:gap-8;
+    @apply sticky top-0 z-40 flex flex-col gap-3 border-b border-line bg-primary/90 py-3 backdrop-blur-xl lg:flex-row lg:items-center lg:gap-8;
   }
 
   .page-title {
-    @apply flex shrink-0 cursor-pointer items-center gap-3 font-display text-2xl font-semibold tracking-tight text-white transition-colors hover:text-secondary-light;
+    @apply flex items-center gap-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl;
   }
 
   .spinner {
-    @apply inline-block size-10 animate-spin rounded-full border-[3px] border-white/10 border-t-secondary;
+    @apply inline-block size-9 animate-spin rounded-full border-[3px] border-line border-t-secondary;
   }
 }
 
@@ -125,30 +144,29 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2c2b36;
+  background: #2c2723;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6556cd;
+  background: #4a423c;
 }
 
 /* ---------- Dropdown (select) ---------- */
 .select {
   position: relative;
   display: flex;
-  min-width: 10rem;
+  min-width: 9.5rem;
   height: 2.75rem;
   flex-shrink: 0;
   border-radius: 9999px;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  background: rgb(255 255 255 / 0.05);
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  transition: border-color 0.2s ease;
 }
 
 .select:hover,
 .select:focus-within {
-  border-color: var(--color-secondary);
-  background: rgb(101 86 205 / 0.12);
+  border-color: var(--color-ink-faint);
 }
 
 .select select {
@@ -157,18 +175,18 @@
   border: 0;
   outline: 0;
   background: transparent;
-  padding: 0 2.75rem 0 1.15rem;
-  color: #f4f4f5;
+  padding: 0 2.6rem 0 1.15rem;
+  color: var(--color-ink);
   font: inherit;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: capitalize;
   cursor: pointer;
 }
 
 .select select option {
-  background: #1a1922;
-  color: #f4f4f5;
+  background: var(--color-surface);
+  color: var(--color-ink);
 }
 
 .select::after {
@@ -176,18 +194,13 @@
   position: absolute;
   top: 50%;
   right: 1.15rem;
-  width: 0.45rem;
-  height: 0.45rem;
-  margin-top: -0.35rem;
-  border-right: 2px solid #a1a1aa;
-  border-bottom: 2px solid #a1a1aa;
+  width: 0.42rem;
+  height: 0.42rem;
+  margin-top: -0.32rem;
+  border-right: 2px solid var(--color-ink-muted);
+  border-bottom: 2px solid var(--color-ink-muted);
   transform: rotate(45deg);
   pointer-events: none;
-  transition: border-color 0.2s ease;
-}
-
-.select:hover::after {
-  border-color: var(--color-secondary-light);
 }
 
 /* ---------- Accessibility ---------- */
@@ -198,6 +211,5 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

@@ -11,15 +11,15 @@ const Notfound = () => {
         alt="Page not found"
       />
 
-      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/60 to-primary"></div>
+      <div className="absolute inset-0 bg-linear-to-b from-primary/50 via-primary/75 to-primary"></div>
 
       <div className="relative z-10 flex w-full h-full items-center justify-center px-5">
-        <div className="max-w-2xl animate-fade-up rounded-3xl border border-white/10 bg-black/45 px-7 py-10 text-center text-white shadow-2xl backdrop-blur-md sm:px-12 sm:py-14">
-          <h1 className="bg-linear-to-br from-secondary-light to-fuchsia-400 bg-clip-text font-display text-7xl font-black text-transparent sm:text-9xl">404</h1>
+        <div className="max-w-2xl animate-fade-up rounded-2xl border border-line bg-surface/85 px-7 py-10 text-center text-white shadow-2xl backdrop-blur-md sm:px-12 sm:py-14">
+          <h1 className="font-display text-7xl font-extrabold text-secondary sm:text-9xl">404</h1>
           <h2 className="mt-3 font-display text-2xl font-bold sm:text-4xl">
             This scene is missing
           </h2>
-          <p className="mx-auto mt-4 max-w-lg leading-7 text-zinc-300">
+          <p className="mx-auto mt-4 max-w-lg leading-7 text-ink-soft">
             The page or trailer you are looking for is unavailable, removed, or has moved somewhere else.
           </p>
 

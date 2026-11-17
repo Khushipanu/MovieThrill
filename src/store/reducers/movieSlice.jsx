@@ -9,7 +9,7 @@ export const movieSlice = createSlice({
     loadMovie:(state,action)=>{
         state.info=action.payload;
     },
-    removeMovie:(state,action)=>{
+    removeMovie:(state)=>{
         state.info=null
     }
     
@@ -19,3 +19,6 @@ export const movieSlice = createSlice({
 export const {loadMovie,removeMovie } = movieSlice.actions;
 
 export default movieSlice.reducer
+
+
+

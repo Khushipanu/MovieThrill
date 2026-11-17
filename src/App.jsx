@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './components/Home';
 import Trending from './components/Trending';
 import Popular from './components/Popular';
@@ -13,9 +14,20 @@ import PersonDetails from './components/PersonDetails';
 import Trailer from './components/partials/Trailer';
 import Notfound from './components/partials/Notfound';
 
+// Start each new page at the top (but keep position when opening/closing a trailer overlay)
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  const page = pathname.replace(/\/trailer$/, '');
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+  return null;
+};
+
 const App = () => {
   return (
-    <div className="flex min-h-screen w-full bg-primary text-zinc-100">
+    <div className="flex min-h-screen w-full bg-primary text-ink">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/trending" element={<Trending/>}/>

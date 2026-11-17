@@ -24,9 +24,11 @@ export const asyncloadtv=(id)=>async(dispatch)=>{
       videos:videos.data.results.find((video)=>video.type==="Trailer" && video.site==="YouTube"),
       watchproviders:watchproviders.data.results?.IN || null,
     };
-    dispatch(loadTv(theultimatedetails))
+    dispatch(loadTv(theultimatedetails));
+    return true;
 
   }catch(err){
-    console.log("Error",err);
+    console.error("Failed to load", id, err);
+    return false;
   }
 }
